@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Provider {
+  id                    String    @id @default(cuid())
+  name                  String
+  slug                  String    @unique
+  logoUrl               String?
+  description           String?
+  website               String?
+  phone                 String?
+  email                 String?
+  coverageRegions       String[]
+  certified             Boolean   @default(false)
+  trustpilotScore       Decimal?  @db.Decimal(2, 1)
+  avgInstallationDays   Int?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  
+  products              Product[]
+  leads                 Lead[]    @relation("LeadProviders")
+  reviews               Review[]
+
+  @@index([slug])
+}
+
+model Product {
+  id                    String    @id @default(cuid())
+  providerId            String
+  name                  String
+  slug                  String    @unique
+  panelBrand            String?
+  panelWatt             Int?
+  inverterBrand         String?
+  inverterModel         String?
+  totalKwp              Decimal   @db.Decimal(5, 2)
+  basePriceSek          Int
+  installationPriceSek  Int
+  pricePerKwpSek        Int
+  warrantyYears         Int
+  panelEfficiency       Decimal?  @db.Decimal(4, 2)
+  available             Boolean   @default(true)
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  
+  provider              Provider  @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  priceHistory          PriceHistory[]
+
+  @@index([providerId])
+  @@index([slug])
+}
+
+model PriceHistory {
+  id                    Int       @id @default(autoincrement())
+  productId             String
+  priceSek              Int
+  recordedAt            DateTime  @default(now())
+  
+  product               Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, recordedAt])
+}
+
+model Lead {
+  id                    String    @id @default(cuid())
+  firstName             String?
+  lastName              String?
+  email                 String
+  phone                 String?
+  address               String?
+  postalCode            String?
+  city                  String?
+  lat                   Decimal?  @db.Decimal(10, 8)
+  lon                   Decimal?  @db.Decimal(11, 8)
+  roofType              String?
+  roofAreaSqm           Int?
+  roofAngle             Int?
+  roofOrientation       String?
+  annualConsumptionKwh  Int?
+  estimatedSystemKwp    Decimal?  @db.Decimal(5, 2)
+  estimatedCostSek      Int?
+  estimatedProductionKwh Int?
+  paybackYears          Decimal?  @db.Decimal(4, 1)
+  status                String    @default("new")
+  source                String?
+  utmSource             String?
+  utmCampaign           String?
+  gdprConsent           Boolean
+  createdAt             DateTime  @default(now())
+  
+  preferredProviders    Provider[] @relation("LeadProviders")
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Review {
+  id                    String    @id @default(cuid())
+  providerId            String
+  userName              String
+  rating                Int
+  comment               String?
+  verified              Boolean   @default(false)
+  installationDate      DateTime?
+  systemKwp             Decimal?  @db.Decimal(5, 2)
+  createdAt             DateTime  @default(now())
+  
+  provider              Provider  @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@index([providerId])
+}
+
+model Calculation {
+  id                    String    @id @default(cuid())
+  sessionId             String?
+  address               String?
+  postalCode            String?
+  lat                   Decimal?  @db.Decimal(10, 8)
+  lon                   Decimal?  @db.Decimal(11, 8)
+  roofAreaSqm           Int?
+  roofAngle             Int?
+  roofOrientation       String?
+  annualConsumptionKwh  Int?
+  electricityPriceSek   Decimal?  @db.Decimal(5, 2)
+  estimatedProductionKwh Int?
+  recommendedKwp        Decimal?  @db.Decimal(5, 2)
+  estimatedCostSek      Int?
+  paybackYears          Decimal?  @db.Decimal(4, 1)
+  createdAt             DateTime  @default(now())
+
+  @@index([sessionId])
+}

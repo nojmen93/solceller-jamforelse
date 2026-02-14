@@ -1,65 +1,168 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Sun, Zap, Shield, ArrowRight, CheckCircle2 } from "lucide-react";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main>
+      <section className="relative overflow-hidden bg-gradient-to-b from-amber-50 to-white px-4 py-16 sm:px-6 sm:py-24">
+        <div className="mx-auto max-w-4xl text-center">
+          <h1 className="text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl">
+            Hitta rätt solcellsinstallation för ditt hem
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-4 text-lg text-stone-600 sm:text-xl">
+            Jämför erbjudanden från certifierade leverantörer. Beräkna
+            återbetalningstid och se passande produkter – helt kostnadsfritt.
           </p>
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link
+              href="/kalkylator"
+              className="inline-flex items-center gap-2 rounded-xl bg-yellow-500 px-6 py-3.5 font-semibold text-stone-900 shadow-lg transition hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+            >
+              Starta kalkylatorn
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+            <Link
+              href="/jamfor"
+              className="inline-flex items-center gap-2 rounded-xl border-2 border-stone-300 bg-white px-6 py-3.5 font-semibold text-stone-700 transition hover:border-yellow-400 hover:bg-amber-50"
+            >
+              Jämför produkter
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section className="border-t border-stone-200 bg-white px-4 py-14 sm:px-6">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="text-center text-2xl font-bold text-stone-900">
+            Varför jämföra hos oss?
+          </h2>
+          <div className="mt-10 grid gap-8 sm:grid-cols-3">
+            <div className="rounded-2xl border border-stone-200 bg-stone-50/50 p-6 text-center">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-500/15">
+                <Zap className="h-6 w-6 text-yellow-600" />
+              </div>
+              <h3 className="mt-4 font-semibold text-stone-900">
+                Snabb kalkylator
+              </h3>
+              <p className="mt-2 text-sm text-stone-600">
+                Få en uppskattning på systemstorlek, kostnad och
+                återbetalningstid på några minuter.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-stone-200 bg-stone-50/50 p-6 text-center">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-500/15">
+                <Sun className="h-6 w-6 text-yellow-600" />
+              </div>
+              <h3 className="mt-4 font-semibold text-stone-900">
+                Verkliga produkter
+              </h3>
+              <p className="mt-2 text-sm text-stone-600">
+                Jämför riktiga paket från leverantörer med priser och
+                specifikationer.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-stone-200 bg-stone-50/50 p-6 text-center">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-500/15">
+                <Shield className="h-6 w-6 text-yellow-600" />
+              </div>
+              <h3 className="mt-4 font-semibold text-stone-900">
+                Certifierade leverantörer
+              </h3>
+              <p className="mt-2 text-sm text-stone-600">
+                Vi visar endast leverantörer som uppfyller våra krav på
+                kvalitet och service.
+              </p>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="border-t border-stone-200 bg-stone-50 px-4 py-14 sm:px-6">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="text-center text-2xl font-bold text-stone-900">
+            Så fungerar det
+          </h2>
+          <ol className="mt-10 grid gap-6 sm:grid-cols-4">
+            <li className="flex flex-col items-center text-center">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-500 font-bold text-stone-900">
+                1
+              </span>
+              <span className="mt-3 font-medium text-stone-900">
+                Fyll i kalkylatorn
+              </span>
+              <span className="mt-1 text-sm text-stone-600">
+                Adress, tak och förbrukning
+              </span>
+            </li>
+            <li className="flex flex-col items-center text-center">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-500 font-bold text-stone-900">
+                2
+              </span>
+              <span className="mt-3 font-medium text-stone-900">
+                Se dina resultat
+              </span>
+              <span className="mt-1 text-sm text-stone-600">
+                Systemstorlek, kostnad, payback
+              </span>
+            </li>
+            <li className="flex flex-col items-center text-center">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-500 font-bold text-stone-900">
+                3
+              </span>
+              <span className="mt-3 font-medium text-stone-900">
+                Jämför produkter
+              </span>
+              <span className="mt-1 text-sm text-stone-600">
+                Filtrera och sortera efter behov
+              </span>
+            </li>
+            <li className="flex flex-col items-center text-center">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-500 font-bold text-stone-900">
+                4
+              </span>
+              <span className="mt-3 font-medium text-stone-900">
+                Kontakta leverantör
+              </span>
+              <span className="mt-1 text-sm text-stone-600">
+                Skicka förfrågan till valda leverantörer
+              </span>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section className="border-t border-stone-200 bg-white px-4 py-14 sm:px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-2xl font-bold text-stone-900">
+            Redo att börja?
+          </h2>
+          <p className="mt-3 text-stone-600">
+            Beräkna vad solceller kan betyda för just ditt hem – det tar bara
+            några minuter.
+          </p>
+          <ul className="mt-6 flex flex-wrap justify-center gap-4 text-sm text-stone-600">
+            <li className="flex items-center gap-2">
+              <CheckCircle2 className="h-5 w-5 text-yellow-500" />
+              Kostnadsfritt
+            </li>
+            <li className="flex items-center gap-2">
+              <CheckCircle2 className="h-5 w-5 text-yellow-500" />
+              Ingen bindning
+            </li>
+            <li className="flex items-center gap-2">
+              <CheckCircle2 className="h-5 w-5 text-yellow-500" />
+              Resultat direkt
+            </li>
+          </ul>
+          <Link
+            href="/kalkylator"
+            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-yellow-500 px-6 py-3.5 font-semibold text-stone-900 transition hover:bg-yellow-600"
+          >
+            Starta kalkylatorn
+            <ArrowRight className="h-5 w-5" />
+          </Link>
+        </div>
+      </section>
+    </main>
   );
 }
