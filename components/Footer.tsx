@@ -6,6 +6,12 @@ const footerLinks = [
   { href: "/kalkylator", label: "Kalkylator" },
   { href: "/jamfor", label: "Jämför produkter" },
   { href: "/leverantorer", label: "Leverantörer" },
+  { href: "/begara-offert", label: "Begär offert" },
+];
+
+const legalLinks = [
+  { href: "/integritet", label: "Integritetspolicy" },
+  { href: "/villkor", label: "Användarvillkor" },
 ];
 
 export function Footer() {
@@ -68,8 +74,20 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-stone-900">Information</h3>
-            <p className="mt-3 text-sm text-stone-600">
+            <h3 className="font-semibold text-stone-900">Juridiskt</h3>
+            <ul className="mt-3 space-y-2">
+              {legalLinks.map(({ href, label }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="text-sm text-stone-600 transition hover:text-yellow-600"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-sm text-stone-600">
               Vi samlar in och jämför erbjudanden från certifierade
               solcellsleverantörer. Alla priser är riktlinjer – slutpris kan
               variera.

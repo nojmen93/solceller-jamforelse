@@ -40,7 +40,11 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json({ id: lead.id, success: true });
+    return NextResponse.json({
+      id: lead.id,
+      success: true,
+      message: "Förfrågan mottagen. Vi återkommer inom 24 timmar.",
+    });
   } catch (e) {
     console.error("Leads API error:", e);
     return NextResponse.json(

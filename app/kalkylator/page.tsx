@@ -10,7 +10,9 @@ import {
   type CalculationResult,
 } from "@/lib/types";
 import { CalculatorResultDisplay } from "@/components/CalculatorResultDisplay";
-import { ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
+import { setStoredCalculation } from "@/lib/lead-storage";
+import Link from "next/link";
+import { ArrowRight, ArrowLeft, Loader2, FileText } from "lucide-react";
 
 const STEPS = [
   { id: 1, title: "Adress" },
@@ -123,6 +125,12 @@ export default function KalkylatorPage() {
         }
         const data: CalculationResult = await calcRes.json();
         setResult(data);
+        setStoredCalculation({
+          result: data,
+          address: payload.address,
+          postalCode: payload.postalCode,
+          city: payload.city,
+        });
         const kwp = data.recommendedKwp;
         const productsRes = await fetch(
           `/api/products?minKwp=${Math.max(0, kwp - 2)}&maxKwp=${kwp + 2}`
@@ -153,7 +161,14 @@ export default function KalkylatorPage() {
           result={result}
           products={products as Parameters<typeof CalculatorResultDisplay>[0]["products"]}
         />
-        <div className="mt-8">
+        <div className="mt-8 flex flex-wrap items-center gap-4">
+          <Link
+            href="/begara-offert"
+            className="inline-flex items-center gap-2 rounded-xl bg-yellow-500 px-5 py-2.5 font-semibold text-stone-900 transition hover:bg-yellow-600"
+          >
+            <FileText className="h-5 w-5" />
+            Begär offerter
+          </Link>
           <button
             type="button"
             onClick={() => {

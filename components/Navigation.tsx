@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/kalkylator", label: "Kalkylator" },
   { href: "/jamfor", label: "Jämför" },
   { href: "/leverantorer", label: "Leverantörer" },
+  { href: "/begara-offert", label: "Begär offert" },
 ];
 
 export function Navigation() {
