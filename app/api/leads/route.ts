@@ -1,60 +1,49 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/db";
-import { leadSchema } from "@/lib/types";
+import { NextRequest, NextResponse } from 'next/server';
+import { LeadFormSchema } from '@/lib/types';
+import { prisma } from '@/lib/db';
 
-export async function POST(request: Request) {
+export async function POST(req: NextRequest) {
   try {
-    const body: unknown = await request.json();
-    const parsed = leadSchema.safeParse(body);
-    if (!parsed.success) {
-      const details = parsed.error.issues.map((issue) => ({
-        path: issue.path.join("."),
-        message: issue.message,
-      }));
+    const body = await req.json();
+    
+    console.log('Received lead data:', body);
+    
+    const validatedData = LeadFormSchema.parse(body);
+    
+    const { preferredProviderIds, ...leadData } = validatedData;
+    
+    const lead = await prisma.lead.create({
+      data: {
+        ...leadData,
+        status: 'new',
+        preferredProviders: preferredProviderIds && preferredProviderIds.length > 0
+          ? {
+              connect: preferredProviderIds.map((id) => ({ id })),
+            }
+          : undefined,
+      },
+    });
+    
+    console.log('Lead created:', lead.id);
+    
+    return NextResponse.json({
+      leadId: lead.id,
+      status: 'sent',
+      providersContacted: preferredProviderIds?.length || 0,
+      estimatedResponseTimeHours: 24,
+    });
+  } catch (error) {
+    console.error('Lead creation error:', error);
+    
+    if (error instanceof Error) {
       return NextResponse.json(
-        { error: "Ogiltig indata", details },
+        { error: error.message, details: error.stack },
         { status: 400 }
       );
     }
-    const data = parsed.data;
-
-    const lead = await prisma.lead.create({
-      data: {
-        firstName: data.firstName ?? undefined,
-        lastName: data.lastName ?? undefined,
-        email: data.email,
-        phone: data.phone ?? undefined,
-        address: data.address ?? undefined,
-        postalCode: data.postalCode ?? undefined,
-        city: data.city ?? undefined,
-        roofType: data.roofType ?? undefined,
-        roofAreaSqm: data.roofAreaSqm ?? undefined,
-        roofAngle: data.roofAngle ?? undefined,
-        roofOrientation: data.roofOrientation ?? undefined,
-        annualConsumptionKwh: data.annualConsumptionKwh ?? undefined,
-        estimatedSystemKwp: data.estimatedSystemKwp ?? undefined,
-        estimatedCostSek: data.estimatedCostSek ?? undefined,
-        estimatedProductionKwh: data.estimatedProductionKwh ?? undefined,
-        paybackYears: data.paybackYears ?? undefined,
-        source: data.source ?? undefined,
-        gdprConsent: data.gdprConsent === true,
-        preferredProviders:
-          data.preferredProviderIds?.length != null &&
-          data.preferredProviderIds.length > 0
-            ? { connect: data.preferredProviderIds.map((id) => ({ id })) }
-            : undefined,
-      },
-    });
-
-    return NextResponse.json({
-      id: lead.id,
-      success: true,
-      message: "Förfrågan mottagen. Vi återkommer inom 24 timmar.",
-    });
-  } catch (e) {
-    console.error("Leads API error:", e);
+    
     return NextResponse.json(
-      { error: "Kunde inte spara förfrågan" },
+      { error: 'Failed to create lead' },
       { status: 500 }
     );
   }
