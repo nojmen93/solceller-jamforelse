@@ -33,11 +33,24 @@ interface Provider {
 export default function LeverantorerPage() {
   const [providers, setProviders] = useState<Provider[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/providers")
-      .then((r) => r.json())
-      .then(setProviders)
+      .then((r) => r.json().then((data) => ({ ok: r.ok, data })))
+      .then(({ ok, data }) => {
+        if (ok && Array.isArray(data)) {
+          setProviders(data);
+          setError(null);
+        } else {
+          setProviders([]);
+          setError(typeof data?.error === "string" ? data.error : "Kunde inte hämta leverantörer");
+        }
+      })
+      .catch(() => {
+        setProviders([]);
+        setError("Något gick fel");
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -51,6 +64,11 @@ export default function LeverantorerPage() {
       {loading ? (
         <div className="mt-10 flex justify-center">
           <Loader2 className="h-8 w-8 animate-spin text-yellow-500" />
+        </div>
+      ) : error ? (
+        <div className="mt-10 rounded-xl border border-amber-200 bg-amber-50 p-6 text-center text-amber-800">
+          <p className="font-medium">{error}</p>
+          <p className="mt-2 text-sm">Försök igen senare eller kontakta oss.</p>
         </div>
       ) : (
         <div className="mt-8 space-y-6">

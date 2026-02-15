@@ -58,9 +58,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(products);
   } catch (e) {
     console.error("Products API error:", e);
-    return NextResponse.json(
-      { error: "Kunde inte hämta produkter" },
-      { status: 500 }
-    );
+    return NextResponse.json([]);
   }
 }

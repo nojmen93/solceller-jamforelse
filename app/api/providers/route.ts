@@ -32,9 +32,7 @@ export async function GET() {
     return NextResponse.json(result);
   } catch (e) {
     console.error("Providers API error:", e);
-    return NextResponse.json(
-      { error: "Kunde inte hämta leverantörer" },
-      { status: 500 }
-    );
+    // Return empty array so client can render without crashing (e.g. DB unavailable on Vercel)
+    return NextResponse.json([]);
   }
 }

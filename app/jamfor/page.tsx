@@ -56,17 +56,21 @@ export default function JamforPage() {
     if (providerId) params.set("providerId", providerId);
     setLoading(true);
     fetch(`/api/products?${params}`)
-      .then((r) => r.json())
-      .then(setProducts)
+      .then((r) => r.json().then((data) => ({ ok: r.ok, data })))
+      .then(({ ok, data }) => {
+        setProducts(ok && Array.isArray(data) ? data : []);
+      })
+      .catch(() => setProducts([]))
       .finally(() => setLoading(false));
   }, [minKwp, maxKwp, maxPrice, providerId]);
 
   useEffect(() => {
     fetch("/api/providers")
-      .then((r) => r.json())
-      .then((list: { id: string; name: string; slug: string }[]) =>
-        setProviders(list)
-      );
+      .then((r) => r.json().then((data) => ({ ok: r.ok, data })))
+      .then(({ ok, data }) => {
+        setProviders(ok && Array.isArray(data) ? data : []);
+      })
+      .catch(() => setProviders([]));
   }, []);
 
   const clearFilters = () => {
