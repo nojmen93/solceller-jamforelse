@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Integritetspolicy | Solceller Jämförelse",
+  title: "Integritetspolicy | Solpriset",
   description:
-    "Integritetspolicy för Solceller Jämförelse. Information om hur vi samlar in, använder och skyddar dina personuppgifter enligt GDPR.",
+    "Integritetspolicy för Solpriset. Information om hur vi samlar in, använder och skyddar dina personuppgifter enligt GDPR.",
 };
 
 export default function IntegritetPage() {
@@ -19,7 +19,7 @@ export default function IntegritetPage() {
 
       <div className="prose prose-stone mt-10 max-w-none">
         <p className="lead text-stone-600">
-          Solceller Jämförelse (&quot;vi&quot;, &quot;oss&quot;, &quot;vår&quot;) värnar om din
+          Solpriset (&quot;vi&quot;, &quot;oss&quot;, &quot;vår&quot;) värnar om din
           integritet. Denna policy beskriver vilka personuppgifter vi samlar in,
           varför vi gör det, hur länge vi behåller dem och vilka rättigheter du
           har enligt GDPR (förordning 2016/679).
@@ -29,7 +29,7 @@ export default function IntegritetPage() {
           1. Personuppgiftsansvarig
         </h2>
         <p className="text-stone-600">
-          Solceller Jämförelse är personuppgiftsansvarig för den behandling av
+          Solpriset är personuppgiftsansvarig för den behandling av
           personuppgifter som beskrivs i denna policy. För frågor om
           personuppgifter eller för att utöva dina rättigheter, kontakta oss på:{" "}
           <a

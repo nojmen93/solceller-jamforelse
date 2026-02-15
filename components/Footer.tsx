@@ -25,7 +25,7 @@ export function Footer() {
               className="inline-flex items-center gap-2 text-stone-900"
             >
               <Sun className="h-6 w-6 text-yellow-500" />
-              <span className="font-semibold">Solceller Jämförelse</span>
+              <span className="font-semibold">Solpriset</span>
             </Link>
             <p className="mt-3 text-sm text-stone-600">
               Jämför solcellsinstallationer och hitta det bästa erbjudandet för
@@ -96,7 +96,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 border-t border-stone-200 pt-6 text-center text-sm text-stone-500">
-          © {new Date().getFullYear()} Solceller Jämförelse. Alla rättigheter
+          © {new Date().getFullYear()} Solpriset. Alla rättigheter
           förbehållna.
         </div>
       </div>

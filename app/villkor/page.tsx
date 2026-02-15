@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Användarvillkor | Solceller Jämförelse",
+  title: "Användarvillkor | Solpriset",
   description:
-    "Användarvillkor för tjänsten Solceller Jämförelse. Information om tjänstens omfattning, datadelning och tvistelösning.",
+    "Användarvillkor för tjänsten Solpriset. Information om tjänstens omfattning, datadelning och tvistelösning.",
 };
 
 export default function VillkorPage() {
@@ -19,7 +19,7 @@ export default function VillkorPage() {
 
       <div className="prose prose-stone mt-10 max-w-none">
         <p className="lead text-stone-600">
-          Genom att använda webbplatsen Solceller Jämförelse (&quot;webbplatsen&quot;,
+          Genom att använda webbplatsen Solpriset (&quot;webbplatsen&quot;,
           &quot;tjänsten&quot;) godkänner du dessa användarvillkor. Läs dem noggrant
           innan du använder tjänsten.
         </p>
@@ -28,7 +28,7 @@ export default function VillkorPage() {
           1. Tjänstens omfattning
         </h2>
         <p className="text-stone-600">
-          Solceller Jämförelse erbjuder en kostnadsfri jämförelse- och
+          Solpriset erbjuder en kostnadsfri jämförelse- och
           informationstjänst för solcellsinstallationer i Sverige. Tjänsten
           omfattar bland annat en solcellsberäkningskalkylator, jämförelse av
           produkter och leverantörer samt möjlighet att begära offerter från
@@ -92,7 +92,7 @@ export default function VillkorPage() {
         </h2>
         <p className="text-stone-600">
           Innehållet på webbplatsen (texter, logotyper, layout, verktyg) tillhör
-          Solceller Jämförelse eller våra licensgivare. Du får använda
+          Solpriset eller våra licensgivare. Du får använda
           webbplatsen för personligt, icke-kommersiellt bruk. Obehörig
           kopiering, distribution eller annan exploatering av innehållet är
           inte tillåten.

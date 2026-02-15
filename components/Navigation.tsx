@@ -25,7 +25,7 @@ export function Navigation() {
           className="flex items-center gap-2 text-stone-900 transition hover:text-yellow-600"
         >
           <Sun className="h-8 w-8 text-yellow-500" aria-hidden />
-          <span className="font-semibold">Solceller Jämförelse</span>
+          <span className="font-semibold">Solpriset</span>
         </Link>
 
         <ul className="hidden items-center gap-1 md:flex">

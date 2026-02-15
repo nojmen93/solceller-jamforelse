@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Solceller Jämförelse | Jämför solcellspaket i Sverige",
+  title: "Solpriset | Jämför solcellspaket i Sverige",
   description:
     "Jämför solcellsinstallationer från certifierade leverantörer. Beräkna kostnad, återbetalningstid och hitta passande paket för ditt hem.",
 };
