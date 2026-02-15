@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { LeadFormSchema } from '@/lib/types';
+import { leadSchema } from '@/lib/types';
 import { prisma } from '@/lib/db';
 
 export async function POST(req: NextRequest) {
@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     
     console.log('Received lead data:', body);
     
-    const validatedData = LeadFormSchema.parse(body);
+	const validatedData = leadSchema.parse(body);
     
     const { preferredProviderIds, ...leadData } = validatedData;
     
