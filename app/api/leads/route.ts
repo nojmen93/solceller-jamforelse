@@ -4,11 +4,15 @@ import { leadSchema } from "@/lib/types";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body: unknown = await request.json();
     const parsed = leadSchema.safeParse(body);
     if (!parsed.success) {
+      const details = parsed.error.issues.map((issue) => ({
+        path: issue.path.join("."),
+        message: issue.message,
+      }));
       return NextResponse.json(
-        { error: "Ogiltig indata", details: parsed.error.flatten() },
+        { error: "Ogiltig indata", details },
         { status: 400 }
       );
     }
@@ -16,27 +20,29 @@ export async function POST(request: Request) {
 
     const lead = await prisma.lead.create({
       data: {
-        firstName: data.firstName,
-        lastName: data.lastName,
+        firstName: data.firstName ?? undefined,
+        lastName: data.lastName ?? undefined,
         email: data.email,
-        phone: data.phone,
-        address: data.address,
-        postalCode: data.postalCode,
-        city: data.city,
-        roofType: data.roofType,
-        roofAreaSqm: data.roofAreaSqm,
-        roofAngle: data.roofAngle,
-        roofOrientation: data.roofOrientation,
-        annualConsumptionKwh: data.annualConsumptionKwh,
-        estimatedSystemKwp: data.estimatedSystemKwp,
-        estimatedCostSek: data.estimatedCostSek,
-        estimatedProductionKwh: data.estimatedProductionKwh,
-        paybackYears: data.paybackYears,
-        source: data.source,
-        gdprConsent: Boolean(data.gdprConsent),
-        preferredProviders: data.preferredProviderIds?.length
-          ? { connect: data.preferredProviderIds.map((id) => ({ id })) }
-          : undefined,
+        phone: data.phone ?? undefined,
+        address: data.address ?? undefined,
+        postalCode: data.postalCode ?? undefined,
+        city: data.city ?? undefined,
+        roofType: data.roofType ?? undefined,
+        roofAreaSqm: data.roofAreaSqm ?? undefined,
+        roofAngle: data.roofAngle ?? undefined,
+        roofOrientation: data.roofOrientation ?? undefined,
+        annualConsumptionKwh: data.annualConsumptionKwh ?? undefined,
+        estimatedSystemKwp: data.estimatedSystemKwp ?? undefined,
+        estimatedCostSek: data.estimatedCostSek ?? undefined,
+        estimatedProductionKwh: data.estimatedProductionKwh ?? undefined,
+        paybackYears: data.paybackYears ?? undefined,
+        source: data.source ?? undefined,
+        gdprConsent: data.gdprConsent === true,
+        preferredProviders:
+          data.preferredProviderIds?.length != null &&
+          data.preferredProviderIds.length > 0
+            ? { connect: data.preferredProviderIds.map((id) => ({ id })) }
+            : undefined,
       },
     });
 
